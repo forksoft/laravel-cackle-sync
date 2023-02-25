@@ -44,7 +44,7 @@ class LaravelCackleSync
             $parameters['gtModify'] = $modified;
         }
 
-        $url = $this->config['channel_list_url'] . "?" . http_build_query($parameters);
+        $url = $this->config['channel_list_url'] . '?' . http_build_query($parameters);
 
         return $this->executeRequest($url);
     }
@@ -61,7 +61,7 @@ class LaravelCackleSync
 
         $parameters = array_merge($this->config['parameters'], compact('size', 'page'));
 
-        $url = $this->config['comment_list_url'] . "?" . http_build_query($parameters);
+        $url = $this->config['comment_list_url'] . '?' . http_build_query($parameters);
 
         return $this->executeRequest($url);
     }
@@ -79,7 +79,7 @@ class LaravelCackleSync
 
         $parameters = array_merge($this->config['parameters'], compact('size', 'commentId', 'page'));
 
-        $url = $this->config['comment_list_url'] . "?" . http_build_query($parameters);
+        $url = $this->config['comment_list_url'] . '?' . http_build_query($parameters);
 
         return $this->executeRequest($url);
     }
@@ -115,7 +115,7 @@ class LaravelCackleSync
 
         $parameters = array_merge($this->config['parameters'], compact('size', 'modified', 'page'));
 
-        $url = $this->config['review_list_url'] . "?" . http_build_query($parameters);
+        $url = $this->config['review_list_url'] . '?' . http_build_query($parameters);
 
         return $this->executeRequest($url);
     }
@@ -126,7 +126,7 @@ class LaravelCackleSync
 
         $result = $client->get($url, [
             'headers' => [
-                "Content-Type" => "application/x-www-form-urlencoded; charset=utf-8",
+                'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8',
             ],
             'http_errors' => false,
             'verify' => false,
@@ -199,6 +199,9 @@ class LaravelCackleSync
             $review->created = $r->created;
             $review->modified = $r->modified;
             $review->save();
+
+            // Save Channel
+            $this->saveChannels([$review->chan]);
         }
     }
 }
