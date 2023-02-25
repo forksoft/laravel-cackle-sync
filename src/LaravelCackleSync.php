@@ -147,7 +147,7 @@ class LaravelCackleSync
     {
         foreach ($channels as $c) {
 
-            $channel = CackleChannel::firstOrNew(['id' => $c->id]);
+            $channel = CackleChannel::firstOrNew(['channel_id' => $c->id]);
             $channel->channel = $c->channel;
             $channel->url = $c->url;
             $channel->title = $c->title;
