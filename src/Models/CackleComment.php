@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CackleComment extends Model
 {
     protected $guarded = ['id'];
-    
+
     /**
      * Channel relation
      *
@@ -16,6 +16,6 @@ class CackleComment extends Model
      */
     public function channel(): BelongsTo
     {
-        return $this->belongsTo(CackleChannel::class, 'channel_id');
+        return $this->belongsTo(CackleChannel::class, 'channel_id', 'channel_id');
     }
 }

@@ -48,9 +48,10 @@ class CreateCackleCommentsTable extends Migration
 
         Schema::create(config('laravel-cackle-sync.channel_table'), function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("channel")->nullable();
-            $table->string("url")->nullable();
-            $table->string("title")->nullable();
+            $table->integer('channel_id')->nullable();
+            $table->string('channel')->nullable();
+            $table->string('url')->nullable();
+            $table->string('title')->nullable();
             $table->unsignedBigInteger('created')->nullable();
             $table->unsignedBigInteger('modified')->nullable();
             $table->timestamps();

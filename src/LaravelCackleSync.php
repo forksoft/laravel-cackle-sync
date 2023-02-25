@@ -6,6 +6,8 @@ use Aleksei4er\LaravelCackleSync\Models\CackleChannel;
 use Aleksei4er\LaravelCackleSync\Models\CackleComment;
 use Aleksei4er\LaravelCackleSync\Models\CackleReview;
 use GuzzleHttp\Client;
+use DB;
+use Throwable;
 
 class LaravelCackleSync
 {
@@ -185,23 +187,31 @@ class LaravelCackleSync
     public function saveReviews(array $reviews): void
     {
         foreach ($reviews as $r) {
-            $review = CackleReview::firstOrNew(['id' => $r->id]);
-            $review->channel_id = $r->chan->id;
-            $review->star = $r->star;
-            $review->pros = $r->pros;
-            $review->cons = $r->cons;
-            $review->comment = $r->comment ?? '';
-            $review->ip = $r->ip;
-            $review->media = $r->media;
-            $review->name = $r->author->name ?? 'Аноним';
-            $review->email = $r->author->email ?? '';
-            $review->status = $r->status;
-            $review->created = $r->created;
-            $review->modified = $r->modified;
-            $review->save();
 
-            // Save Channel
-            $this->saveChannels([$r->chan]);
+            DB::beginTransaction();
+            try {
+                $review = CackleReview::firstOrNew(['id' => $r->id]);
+                $review->channel_id = $r->chan->id;
+                $review->star = $r->star;
+                $review->pros = $r->pros;
+                $review->cons = $r->cons;
+                $review->comment = $r->comment ?? '';
+                $review->ip = $r->ip;
+                $review->media = $r->media;
+                $review->name = $r->author->name ?? 'Аноним';
+                $review->email = $r->author->email ?? '';
+                $review->status = $r->status;
+                $review->created = $r->created;
+                $review->modified = $r->modified;
+                $review->save();
+
+                // Save Channel
+                $this->saveChannels([$r->chan]);
+            } catch (Throwable $throwable) {
+                DB::rollback();
+                throw $throwable;
+            }
+            DB::commit();
         }
     }
 }
