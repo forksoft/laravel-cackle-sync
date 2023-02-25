@@ -201,7 +201,7 @@ class LaravelCackleSync
             $review->save();
 
             // Save Channel
-            $this->saveChannels([$review->chan]);
+            $this->saveChannels([$r->chan]);
         }
     }
 }
