@@ -149,7 +149,7 @@ class LaravelCackleSync
             $channel->channel = $c->channel;
             $channel->url = $c->url;
             $channel->title = $c->title;
-            $channel->created = $c->created;
+            $channel->created = $c->created ?? null;
             $channel->modified = $c->modify ?? null;
             $channel->save();
         }
