@@ -190,7 +190,7 @@ class LaravelCackleSync
             $review->star = $r->star;
             $review->pros = $r->pros;
             $review->cons = $r->cons;
-            $review->comment = $r->comment;
+            $review->comment = $r->comment ?? '';
             $review->ip = $r->ip;
             $review->media = $r->media;
             $review->name = $r->author->name ?? 'Аноним';
