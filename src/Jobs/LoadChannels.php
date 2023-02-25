@@ -56,10 +56,10 @@ class LoadChannels implements ShouldQueue
 
         LaravelCackleSync::saveChannels($channels);
 
-        if (count($channels) >= LaravelCackle::ITEMS_ON_PAGE) {
+        if (\count($channels) >= LaravelCackle::ITEMS_ON_PAGE) {
             LoadChannels::dispatch($this->page + 1)
             ->delay(now()->addSeconds($this->requestInterval))
-            ->onQueue("cackle");
+            ->onQueue('cackle');
         }
 
     }

@@ -64,10 +64,10 @@ class LoadReviews implements ShouldQueue
 
         LaravelCackleSync::saveReviews($reviews);
 
-        if (count($reviews) >= LaravelCackle::ITEMS_ON_PAGE) {
+        if (\count($reviews) >= LaravelCackle::ITEMS_ON_PAGE) {
             LoadReviews::dispatch($this->modified, $this->page + 1)
             ->delay(now()->addSeconds($this->requestInterval))
-            ->onQueue("cackle");
+            ->onQueue('cackle');
         }
 
     }
