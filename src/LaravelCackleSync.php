@@ -150,7 +150,7 @@ class LaravelCackleSync
             preg_match('/\/board\/ad\/(.*)/i', $c->channel, $matches);
 
             $channel = CackleChannel::firstOrNew(['channel_id' => $c->id]);
-            $channel->ad_id = $matches[0];
+            $channel->ad_id = $matches[1];
             $channel->channel = $c->channel;
             $channel->url = $c->url;
             $channel->title = $c->title;
