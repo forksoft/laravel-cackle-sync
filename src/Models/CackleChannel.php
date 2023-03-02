@@ -24,4 +24,9 @@ class CackleChannel extends Model
         return $this->hasMany(CackleReview::class, 'channel_id', 'channel_id');
     }
 
+    public function ad()
+    {
+        return $this->belongsTo('App\Models\Ad');
+    }
+
 }
