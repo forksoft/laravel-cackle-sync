@@ -193,7 +193,7 @@ class LaravelCackleSync
 
             DB::beginTransaction();
             try {
-                $review = CackleReview::firstOrNew(['id' => $r->id]);
+                $review = CackleReview::firstOrNew(['cackle_id' => $r->id]);
                 $review->channel_id = $r->chan->id;
                 $review->star = $r->star;
                 $review->pros = $r->pros;
